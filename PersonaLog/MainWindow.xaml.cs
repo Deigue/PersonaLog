@@ -22,6 +22,7 @@ namespace PersonaLog
     {
         public MainWindow()
         {
+            //Test commit in diff using Meld.
             InitializeComponent();
         }
     }
