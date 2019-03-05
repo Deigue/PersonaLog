@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
+using PersonaLog.ViewModels;
 
 namespace PersonaLog
 {

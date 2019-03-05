@@ -1,6 +1,6 @@
 using Caliburn.Micro;
 
-namespace PersonaLog {
+namespace PersonaLog.ViewModels {
     public class ShellViewModel : PropertyChangedBase
     {
     }
