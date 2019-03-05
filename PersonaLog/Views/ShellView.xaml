@@ -13,5 +13,5 @@
     GlowBrush="{DynamicResource AccentColorBrush}"
     WindowStartupLocation="CenterScreen"
     ResizeMode="CanResizeWithGrip">
-    <TextBox Controls:TextBoxHelper.Watermark="{Binding Watermark}" />
+    <TextBox Controls:TextBoxHelper.Watermark="{Binding Path=Watermark}" Margin="229,10,229,360" RenderTransformOrigin="0.502,0.406" />
 </Controls:MetroWindow>

@@ -21,7 +21,7 @@ namespace PersonaLog
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<ShellViewModel>();
+            DisplayRootViewFor<IShell>();
         }
 
         protected override void Configure()
@@ -40,19 +40,27 @@ namespace PersonaLog
             _container.Compose(batch);
         }
 
-        protected override object GetInstance(Type service, string key)
+        protected override object GetInstance(Type serviceType, string key)
         {
-            return base.GetInstance(service, key);
+            var contract = string.IsNullOrEmpty(key)
+                               ? AttributedModelServices.GetContractName(serviceType)
+                               : key;
+            var exports = _container.GetExportedValues<object>(contract).ToList();
+
+            if (exports.Any())
+                return exports.First();
+
+            throw new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
         }
 
-        protected override IEnumerable<object> GetAllInstances(Type service)
+        protected override IEnumerable<object> GetAllInstances(Type serviceType)
         {
-            return base.GetAllInstances(service);
+            return _container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
         }
 
         protected override void BuildUp(object instance)
         {
-            base.BuildUp(instance);
+            _container.SatisfyImportsOnce(instance);
         }
 
 
