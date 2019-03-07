@@ -2,14 +2,21 @@ using Caliburn.Micro;
 using MahApps.Metro.Controls;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using Metro.Dialogs;
 
 namespace PersonaLog.ViewModels {
     [Export(typeof(IShell))]
     public class ShellViewModel : INotifyPropertyChanged, IShell
     {
+        //Private VM variables.
+        private readonly IWindowsDialogs _windowDialogs;
 
-        public ShellViewModel()
+        [ImportingConstructor]
+        public ShellViewModel(IWindowsDialogs windowDialogs)
         {
+            //Set Metro window dialogs.
+            _windowDialogs = windowDialogs;
+
             //Default watermark message for file path.
             //TODO: Make this read-only. Pretty format with a label. Make a model to store file information.
             Watermark = "<Chosen file path>";

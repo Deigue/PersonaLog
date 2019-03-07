@@ -7,6 +7,7 @@ using System.ComponentModel.Composition.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace PersonaLog
 {
@@ -26,10 +27,11 @@ namespace PersonaLog
 
         protected override void Configure()
         {
-            _container = new CompositionContainer(new AggregateCatalog
-                                                    (AssemblySource.Instance
-                                                        .Select(x => new AssemblyCatalog(x))
-                                                        .OfType<ComposablePartCatalog>())); 
+            //Define the catalog ...
+            var catalog = new AggregateCatalog(
+                AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>());
+
+            _container = new CompositionContainer(catalog); 
 
             var batch = new CompositionBatch();
 
@@ -38,19 +40,31 @@ namespace PersonaLog
             batch.AddExportedValue(_container);
 
             _container.Compose(batch);
+
         }
+
+        /* Override Template Implementation incase required
+        protected override IEnumerable<Assembly> SelectAssemblies()
+        {
+            yield return typeof(MEFBootstrapper).Assembly;
+            yield return typeof(IWindowManager).Assembly;
+            
+        }
+        */
 
         protected override object GetInstance(Type serviceType, string key)
         {
             var contract = string.IsNullOrEmpty(key)
                                ? AttributedModelServices.GetContractName(serviceType)
                                : key;
+
             var exports = _container.GetExportedValues<object>(contract).ToList();
 
             if (exports.Any())
                 return exports.First();
 
             throw new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
+
         }
 
         protected override IEnumerable<object> GetAllInstances(Type serviceType)
@@ -63,7 +77,5 @@ namespace PersonaLog
             _container.SatisfyImportsOnce(instance);
         }
 
-
-        
     }
 }

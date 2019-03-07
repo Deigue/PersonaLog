@@ -9,29 +9,26 @@
     mc:Ignorable="d"
     Title="PersonaLog"
     TitleCaps="False"
-    Height="450" 
+    Height="500" 
     Width="800"
+    MinHeight="500"
+    MinWidth="600"
     GlowBrush="{DynamicResource AccentColorBrush}"
     WindowStartupLocation="CenterScreen"
     ResizeMode="CanResizeWithGrip">
-    <Border Width="Auto" Height="Auto">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="100
-                                  " />
-            </Grid.ColumnDefinitions>
-       
-            <Label Grid.Row ="0" Grid.Column="0" Content="Log File:"/>
-            <TextBox Grid.Row ="0" Grid.Column="1" Controls:TextBoxHelper.Watermark="{Binding Path=Watermark}" />
-        </Grid>
-    </Border>
+    <Grid Margin="10" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100
+                                " />
+        </Grid.ColumnDefinitions>
 
-
-
+        <Label Grid.Row ="0" Grid.Column="0" Content="Log File:"/>
+        <TextBox Grid.Row ="0" Grid.Column="1" Controls:TextBoxHelper.Watermark="{Binding Path=Watermark}" />
+    </Grid>
 </Controls:MetroWindow>
