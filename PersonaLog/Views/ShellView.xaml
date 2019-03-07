@@ -14,5 +14,24 @@
     GlowBrush="{DynamicResource AccentColorBrush}"
     WindowStartupLocation="CenterScreen"
     ResizeMode="CanResizeWithGrip">
-    <TextBox Controls:TextBoxHelper.Watermark="{Binding Path=Watermark}" Margin="229,10,229,360" RenderTransformOrigin="0.502,0.406" />
+    <Border Width="Auto" Height="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100
+                                  " />
+            </Grid.ColumnDefinitions>
+       
+            <Label Grid.Row ="0" Grid.Column="0" Content="Log File:"/>
+            <TextBox Grid.Row ="0" Grid.Column="1" Controls:TextBoxHelper.Watermark="{Binding Path=Watermark}" />
+        </Grid>
+    </Border>
+
+
+
 </Controls:MetroWindow>
