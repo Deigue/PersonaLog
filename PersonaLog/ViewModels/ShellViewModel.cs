@@ -12,10 +12,10 @@ namespace PersonaLog.ViewModels {
         private readonly IWindowsDialogs _windowDialogs;
 
         [ImportingConstructor]
-        public ShellViewModel()
+        public ShellViewModel(IWindowsDialogs windowDialogs)
         {
             //Set Metro window dialogs.
-            //_windowDialogs = windowDialogs;
+            _windowDialogs = windowDialogs;
 
             //Default watermark message for file path.
             //TODO: Make this read-only. Pretty format with a label. Make a model to store file information.

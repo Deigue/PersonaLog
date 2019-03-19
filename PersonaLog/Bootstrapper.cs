@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Metro.Dialogs;
 
 namespace PersonaLog
 {
@@ -35,19 +36,26 @@ namespace PersonaLog
 
             var batch = new CompositionBatch();
 
-            batch.AddExportedValue<IWindowManager>(new WindowManager());
+            var windowManager = new WindowManager();
+            batch.AddExportedValue<IWindowManager>(windowManager);
             batch.AddExportedValue<IEventAggregator>(new EventAggregator());
+            //Added export for the customized dialogs so we can easily import at runtime.
+            batch.AddExportedValue<IWindowsDialogs>(new WindowsDialogs(windowManager));
             batch.AddExportedValue(_container);
 
             _container.Compose(batch);
 
         }
 
-        /* Override Template Implementation incase required
+        /*  Used to get the customized Dialogs assembly via subsequent call.
+         *  Update [2019/03/18] We cannot use this, because Metro.Dialogs has an
+         *  assembly dependency to an older version of MahApps.Metro.dll [1.2.4.0].
+         *  We are better of instantiating this ourselves and dealing with the problems
+         *  as they come ...
         protected override IEnumerable<Assembly> SelectAssemblies()
         {
             yield return typeof(MEFBootstrapper).Assembly;
-            yield return typeof(IWindowManager).Assembly;
+            yield return typeof(IWindowsDialogs).Assembly;
             
         }
         */
